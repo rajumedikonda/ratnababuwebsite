@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Ratnababu World</title>
 
 <style>
+*{box-sizing:border-box}
 body{
 margin:0;
 font-family:Arial,sans-serif;
@@ -13,7 +14,7 @@ text-align:center;
 background:linear-gradient(135deg,#ff0080,#7928ca,#00c6ff);
 color:white;
 }
-.banner{padding:35px 15px}
+.banner{padding:30px 15px}
 .logo{
 width:120px;height:120px;border-radius:50%;
 background:white;margin:auto;
@@ -25,37 +26,31 @@ h1{font-size:38px}
 padding:10px;border-radius:10px;
 font-size:16px;font-weight:bold;
 }
-nav{
-background:white;padding:15px;
-}
+nav{background:white;padding:15px}
 nav a{
 text-decoration:none;color:#7928ca;
 font-weight:bold;margin:0 7px;
 }
 .card{
 background:white;color:#333;
-width:80%;max-width:450px;
+width:90%;max-width:480px;
 margin:25px auto;padding:25px;
 border-radius:20px;
 box-shadow:0 8px 20px rgba(0,0,0,.3);
 }
-button{
-background:#25D366;color:white;
-border:none;padding:12px 20px;
-border-radius:20px;
-font-size:17px;font-weight:bold;
-cursor:pointer;
-}
 .calculator{
-max-width:330px;
+max-width:390px;
 margin:auto;
 }
 #display{
-width:90%;
-padding:12px;
+width:100%;
+height:60px;
+padding:10px;
 font-size:24px;
 text-align:right;
 margin-bottom:12px;
+border:2px solid #7928ca;
+border-radius:10px;
 }
 .keys{
 display:grid;
@@ -63,12 +58,34 @@ grid-template-columns:repeat(4,1fr);
 gap:7px;
 }
 .keys button{
-background:#7928ca;
+padding:14px 5px;
+border:0;
 border-radius:10px;
+background:#7928ca;
+color:white;
+font-size:17px;
+font-weight:bold;
+}
+.keys button:active{
+transform:scale(.95);
 }
 .clear{
-grid-column:span 4;
-background:#ff3333 !important;
+background:#e53935!important;
+}
+.operator{
+background:#ff9800!important;
+}
+.scientific{
+background:#00897b!important;
+}
+.whatsapp{
+background:#25D366;
+color:white;
+border:0;
+padding:14px 25px;
+border-radius:25px;
+font-size:17px;
+font-weight:bold;
 }
 </style>
 </head>
@@ -80,6 +97,7 @@ background:#ff3333 !important;
 <div class="logo">RW</div>
 
 <h1 id="title">Ratnababu World</h1>
+
 <p id="welcome">Welcome to my official website!</p>
 
 <select class="language" id="language" onchange="changeLanguage()">
@@ -116,7 +134,7 @@ background:#ff3333 !important;
 
 <div class="card" id="calculator">
 
-<h2 id="calculatorTitle">Calculator</h2>
+<h2 id="calculatorTitle">Scientific Calculator</h2>
 
 <div class="calculator">
 
@@ -124,29 +142,40 @@ background:#ff3333 !important;
 
 <div class="keys">
 
+<button class="clear" onclick="clearCalc()">AC</button>
+<button class="scientific" onclick="percent()">%</button>
+<button class="scientific" onclick="squareRoot()">√</button>
+<button class="operator" onclick="press('/')">÷</button>
+
+<button class="scientific" onclick="square()">x²</button>
+<button class="scientific" onclick="reciprocal()">1/x</button>
+<button class="scientific" onclick="press(Math.PI.toString())">π</button>
+<button class="operator" onclick="press('*')">×</button>
+
+<button class="scientific" onclick="sinCalc()">sin</button>
+<button class="scientific" onclick="cosCalc()">cos</button>
+<button class="scientific" onclick="tanCalc()">tan</button>
+<button class="operator" onclick="press('-')">−</button>
+
 <button onclick="press('7')">7</button>
 <button onclick="press('8')">8</button>
 <button onclick="press('9')">9</button>
-<button onclick="press('/')">÷</button>
+<button class="operator" onclick="press('+')">+</button>
 
 <button onclick="press('4')">4</button>
 <button onclick="press('5')">5</button>
 <button onclick="press('6')">6</button>
-<button onclick="press('*')">×</button>
+<button onclick="backspace()">⌫</button>
 
 <button onclick="press('1')">1</button>
 <button onclick="press('2')">2</button>
 <button onclick="press('3')">3</button>
-<button onclick="press('-')">−</button>
+<button onclick="calculate()">=</button>
 
 <button onclick="press('0')">0</button>
 <button onclick="press('.')">.</button>
-<button onclick="calculate()">=</button>
-<button onclick="press('+')">+</button>
-
-<button class="clear" onclick="clearCalc()" id="clearButton">
-Clear
-</button>
+<button onclick="press('(')">(</button>
+<button onclick="press(')')">)</button>
 
 </div>
 </div>
@@ -161,7 +190,9 @@ Contact me directly on WhatsApp.
 </p>
 
 <a href="https://wa.me/916281670034" target="_blank">
-<button id="whatsapp">Contact Me on WhatsApp</button>
+<button class="whatsapp" id="whatsapp">
+Contact Me on WhatsApp
+</button>
 </a>
 
 </div>
@@ -172,22 +203,101 @@ function press(value){
 document.getElementById("display").value += value;
 }
 
-function calculate(){
-
-let display=document.getElementById("display");
-
-try{
-display.value=Function("return "+display.value)();
-}
-catch{
-display.value="Error";
-}
-
-}
-
 function clearCalc(){
 document.getElementById("display").value="";
 }
+
+function backspace(){
+let d=document.getElementById("display");
+d.value=d.value.slice(0,-1);
+}
+
+function calculate(){
+let d=document.getElementById("display");
+
+try{
+let result=Function("return "+d.value)();
+d.value=result;
+}
+catch{
+d.value="Error";
+}
+}
+
+function getNumber(){
+let d=document.getElementById("display");
+let n=parseFloat(d.value);
+
+if(isNaN(n)){
+d.value="Error";
+return null;
+}
+
+return n;
+}
+
+function percent(){
+let n=getNumber();
+if(n!==null){
+document.getElementById("display").value=n/100;
+}
+}
+
+function squareRoot(){
+let n=getNumber();
+if(n!==null){
+document.getElementById("display").value=Math.sqrt(n);
+}
+}
+
+function square(){
+let n=getNumber();
+if(n!==null){
+document.getElementById("display").value=n*n;
+}
+}
+
+function reciprocal(){
+let n=getNumber();
+
+if(n!==null){
+
+if(n===0){
+document.getElementById("display").value="Error";
+}else{
+document.getElementById("display").value=1/n;
+}
+
+}
+}
+
+function sinCalc(){
+let n=getNumber();
+
+if(n!==null){
+document.getElementById("display").value=
+Math.sin(n*Math.PI/180);
+}
+}
+
+function cosCalc(){
+let n=getNumber();
+
+if(n!==null){
+document.getElementById("display").value=
+Math.cos(n*Math.PI/180);
+}
+}
+
+function tanCalc(){
+let n=getNumber();
+
+if(n!==null){
+document.getElementById("display").value=
+Math.tan(n*Math.PI/180);
+}
+}
+
 
 const translations={
 
@@ -204,11 +314,10 @@ homeText2:"నా వెబ్‌సైట్‌ను సందర్శిం�
 aboutTitle:"రత్నబాబు గురించి",
 aboutText1:"నా పేరు రత్నబాబు.",
 aboutText2:"నా ప్రపంచానికి స్వాగతం!",
-calculatorTitle:"కాలిక్యులేటర్",
+calculatorTitle:"సైంటిఫిక్ కాలిక్యులేటర్",
 contactTitle:"సంప్రదించండి",
 contactText:"వాట్సాప్ ద్వారా నన్ను నేరుగా సంప్రదించండి.",
-whatsapp:"వాట్సాప్‌లో సంప్రదించండి",
-clear:"క్లియర్"
+whatsapp:"వాట్సాప్‌లో సంప్రదించండి"
 },
 
 en:{
@@ -224,11 +333,10 @@ homeText2:"Thank you for visiting my website.",
 aboutTitle:"About Ratnababu",
 aboutText1:"My name is Ratnababu.",
 aboutText2:"Welcome to my world!",
-calculatorTitle:"Calculator",
+calculatorTitle:"Scientific Calculator",
 contactTitle:"Contact",
 contactText:"Contact me directly on WhatsApp.",
-whatsapp:"Contact Me on WhatsApp",
-clear:"Clear"
+whatsapp:"Contact Me on WhatsApp"
 },
 
 hi:{
@@ -244,11 +352,10 @@ homeText2:"मेरी वेबसाइट देखने के लिए �
 aboutTitle:"रत्नबाबू के बारे में",
 aboutText1:"मेरा नाम रत्नबाबू है।",
 aboutText2:"मेरी दुनिया में आपका स्वागत है!",
-calculatorTitle:"कैलकुलेटर",
+calculatorTitle:"साइंटिफिक कैलकुलेटर",
 contactTitle:"संपर्क",
 contactText:"मुझसे सीधे व्हाट्सऐप पर संपर्क करें।",
-whatsapp:"व्हाट्सऐप पर संपर्क करें",
-clear:"क्लियर"
+whatsapp:"व्हाट्सऐप पर संपर्क करें"
 },
 
 ta:{
@@ -264,11 +371,10 @@ homeText2:"எனது இணையதளத்தை பார்வையி�
 aboutTitle:"ரத்னபாபு பற்றி",
 aboutText1:"என் பெயர் ரத்னபாபு.",
 aboutText2:"என் உலகிற்கு வரவேற்கிறேன்!",
-calculatorTitle:"கால்குலேட்டர்",
+calculatorTitle:"அறிவியல் கால்குலேட்டர்",
 contactTitle:"தொடர்பு",
 contactText:"வாட்ஸ்அப் மூலம் என்னை தொடர்பு கொள்ளுங்கள்.",
-whatsapp:"வாட்ஸ்அப்பில் தொடர்பு கொள்ளுங்கள்",
-clear:"அழி"
+whatsapp:"வாட்ஸ்அப்பில் தொடர்பு கொள்ளுங்கள்"
 },
 
 kn:{
@@ -284,11 +390,10 @@ homeText2:"ನನ್ನ ವೆಬ್‌ಸೈಟ್‌ಗೆ ಭೇಟಿ ನೀ
 aboutTitle:"ರತ್ನಬಾಬು ಬಗ್ಗೆ",
 aboutText1:"ನನ್ನ ಹೆಸರು ರತ್ನಬಾಬು.",
 aboutText2:"ನನ್ನ ಜಗತ್ತಿಗೆ ಸ್ವಾಗತ!",
-calculatorTitle:"ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+calculatorTitle:"ವೈಜ್ಞಾನಿಕ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
 contactTitle:"ಸಂಪರ್ಕ",
 contactText:"ವಾಟ್ಸಾಪ್ ಮೂಲಕ ನನ್ನನ್ನು ಸಂಪರ್ಕಿಸಿ.",
-whatsapp:"ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ",
-clear:"ಅಳಿಸಿ"
+whatsapp:"ವಾಟ್ಸಾಪ್‌ನಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ"
 },
 
 ml:{
@@ -304,11 +409,10 @@ homeText2:"എന്റെ വെബ്‌സൈറ്റ് സന്ദർശ�
 aboutTitle:"രത്നബാബുവിനെ കുറിച്ച്",
 aboutText1:"എന്റെ പേര് രത്നബാബു.",
 aboutText2:"എന്റെ ലോകത്തിലേക്ക് സ്വാഗതം!",
-calculatorTitle:"കാൽക്കുലേറ്റർ",
+calculatorTitle:"സയന്റിഫിക് കാൽക്കുലേറ്റർ",
 contactTitle:"ബന്ധപ്പെടുക",
 contactText:"വാട്ട്സ്ആപ്പ് വഴി എന്നെ ബന്ധപ്പെടുക.",
-whatsapp:"വാട്ട്സ്ആപ്പിൽ ബന്ധപ്പെടുക",
-clear:"മായ്ക്കുക"
+whatsapp:"വാട്ട്സ്ആപ്പിൽ ബന്ധപ്പെടുക"
 },
 
 mr:{
@@ -324,11 +428,10 @@ homeText2:"माझी वेबसाइट पाहिल्याबद्�
 aboutTitle:"रत्नबाबू बद्दल",
 aboutText1:"माझे नाव रत्नबाबू आहे.",
 aboutText2:"माझ्या जगात आपले स्वागत आहे!",
-calculatorTitle:"कॅल्क्युलेटर",
+calculatorTitle:"सायंटिफिक कॅल्क्युलेटर",
 contactTitle:"संपर्क",
 contactText:"व्हॉट्सअॅपवर माझ्याशी संपर्क साधा.",
-whatsapp:"व्हॉट्सअॅपवर संपर्क करा",
-clear:"क्लिअर"
+whatsapp:"व्हॉट्सअॅपवर संपर्क करा"
 },
 
 bn:{
@@ -344,19 +447,18 @@ homeText2:"আমার ওয়েবসাইট দেখার জন্য
 aboutTitle:"রত্নবাবু সম্পর্কে",
 aboutText1:"আমার নাম রত্নবাবু।",
 aboutText2:"আমার জগতে আপনাকে স্বাগতম!",
-calculatorTitle:"ক্যালকুলেটর",
+calculatorTitle:"সায়েন্টিফিক ক্যালকুলেটর",
 contactTitle:"যোগাযোগ",
 contactText:"হোয়াটসঅ্যাপে আমার সাথে যোগাযোগ করুন।",
-whatsapp:"হোয়াটসঅ্যাপে যোগাযোগ করুন",
-clear:"মুছে ফেলুন"
+whatsapp:"হোয়াটসঅ্যাপে যোগাযোগ করুন"
 }
 
 };
 
 function changeLanguage(){
 
-const lang=document.getElementById("language").value;
-const t=translations[lang];
+let lang=document.getElementById("language").value;
+let t=translations[lang];
 
 document.getElementById("title").innerText=t.title;
 document.getElementById("welcome").innerText=t.welcome;
@@ -374,12 +476,17 @@ document.getElementById("aboutTitle").innerText=t.aboutTitle;
 document.getElementById("aboutText1").innerText=t.aboutText1;
 document.getElementById("aboutText2").innerText=t.aboutText2;
 
-document.getElementById("calculatorTitle").innerText=t.calculatorTitle;
+document.getElementById("calculatorTitle").innerText=
+t.calculatorTitle;
 
-document.getElementById("contactTitle").innerText=t.contactTitle;
-document.getElementById("contactText").innerText=t.contactText;
-document.getElementById("whatsapp").innerText=t.whatsapp;
-document.getElementById("clearButton").innerText=t.clear;
+document.getElementById("contactTitle").innerText=
+t.contactTitle;
+
+document.getElementById("contactText").innerText=
+t.contactText;
+
+document.getElementById("whatsapp").innerText=
+t.whatsapp;
 
 }
 
