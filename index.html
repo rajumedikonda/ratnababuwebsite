@@ -1,567 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ratnababu World</title>
+<title>Ratnababu World - MR AI</title>
 
 <style>
-*{box-sizing:border-box}
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-text-align:center;
-background:linear-gradient(135deg,#ff0080,#7928ca,#00c6ff);
-color:white;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:#222;
 }
 
-.banner{padding:30px 15px}
-
-.logo{
-width:120px;height:120px;border-radius:50%;
-background:white;margin:auto;
-display:flex;align-items:center;justify-content:center;
-color:#7928ca;font-size:25px;font-weight:bold;
-}
-
-h1{font-size:38px}
-
-.language{
-padding:10px;border-radius:10px;
-font-size:16px;font-weight:bold;
-}
-
-nav{
-background:white;padding:15px;
-}
-
-nav a{
-text-decoration:none;color:#7928ca;
-font-weight:bold;margin:0 6px;
+header{
+    text-align:center;
+    color:white;
+    padding:30px 15px;
 }
 
 .card{
-background:white;color:#333;
-width:90%;max-width:480px;
-margin:25px auto;padding:25px;
-border-radius:20px;
-box-shadow:0 8px 20px rgba(0,0,0,.3);
+    max-width:600px;
+    margin:20px auto;
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-/* TIME */
-
-#time{
-font-size:40px;
-font-weight:bold;
-color:#7928ca;
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:14px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
 }
 
-#date,#day{
-font-size:20px;
-margin:8px;
+button{
+    width:100%;
+    margin-top:12px;
+    padding:14px;
+    border:0;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
 }
 
-/* WALLET */
-
-.wallet{
-background:linear-gradient(135deg,#111,#7928ca);
-color:white;
-border-radius:20px;
-padding:25px;
-}
-
-.balance{
-font-size:40px;
-font-weight:bold;
-margin:15px;
-}
-
-.wallet button{
-border:0;
-padding:13px 20px;
-margin:5px;
-border-radius:20px;
-font-weight:bold;
-font-size:16px;
-}
-
-.add{background:#25D366;color:white}
-.withdraw{background:#ff9800;color:white}
-
-#walletMessage{
-margin-top:15px;
-font-weight:bold;
-}
-
-/* CALCULATOR */
-
-#display{
-width:100%;
-height:60px;
-font-size:24px;
-text-align:right;
-padding:10px;
-border:2px solid #7928ca;
-border-radius:10px;
-margin-bottom:10px;
-}
-
-.keys{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:7px;
-}
-
-.keys button{
-padding:14px 5px;
-border:0;
-border-radius:10px;
-background:#7928ca;
-color:white;
-font-size:17px;
-font-weight:bold;
-}
-
-.operator{background:#ff9800!important}
-.scientific{background:#00897b!important}
-.clear{background:#e53935!important}
-
-.whatsapp{
-background:#25D366;
-color:white;
-border:0;
-padding:14px 25px;
-border-radius:25px;
-font-size:17px;
-font-weight:bold;
+#answer{
+    margin-top:20px;
+    padding:15px;
+    background:#f1f5f9;
+    border-radius:10px;
+    min-height:30px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="banner">
+<header>
+    <h1>🌍 RW - Ratnababu World</h1>
+    <p>Welcome to my official website!</p>
+    <p>My name is Ratnababu.</p>
+</header>
 
-<div class="logo">RW</div>
+<div class="card">
+    <h2>🤖 MR AI</h2>
+    <p>Ask me a question</p>
 
-<h1 id="title">Ratnababu World</h1>
+    <input
+        type="text"
+        id="question"
+        placeholder="Type your question..."
+    >
 
-<p id="welcome">Welcome to my official website!</p>
+    <button onclick="askAI()">Ask MR AI</button>
 
-<select class="language" onchange="changeLanguage()" id="language">
-<option value="en">English</option>
-<option value="te">తెలుగు</option>
-<option value="hi">हिन्दी</option>
-<option value="ta">தமிழ்</option>
-<option value="kn">ಕನ್ನಡ</option>
-<option value="ml">മലയാളം</option>
-<option value="mr">मराठी</option>
-<option value="bn">বাংলা</option>
-</select>
-
-</div>
-
-<nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#clock">Time</a>
-<a href="#wallet">Wallet</a>
-<a href="#calculator">Calculator</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<div class="card" id="home">
-<h2>Home</h2>
-<p>Welcome to Ratnababu World.</p>
-<p>Thank you for visiting my website.</p>
-</div>
-
-<div class="card" id="about">
-<h2>About Ratnababu</h2>
-<p>My name is Ratnababu.</p>
-<p>Welcome to my world!</p>
-</div>
-
-<!-- TIME -->
-
-<div class="card" id="clock">
-
-<h2>🕐 Live Time</h2>
-
-<div id="time">00:00:00</div>
-
-<div id="date">00/00/0000</div>
-
-<div id="day">Day</div>
-
-</div>
-
-<!-- WALLET -->
-
-<div class="card" id="wallet">
-
-<div class="wallet">
-
-<h2>💰 Ratnababu Wallet</h2>
-
-<p>Wallet Balance</p>
-
-<div class="balance">
-₹<span id="balance">0.00</span>
-</div>
-
-<button class="add" onclick="addMoney()">
-➕ Add Money
-</button>
-
-<button class="withdraw" onclick="withdrawMoney()">
-💸 Withdraw
-</button>
-
-<div id="walletMessage">
-Demo Wallet
-</div>
-
-</div>
-
-</div>
-
-<!-- CALCULATOR -->
-
-<div class="card" id="calculator">
-
-<h2>Scientific Calculator</h2>
-
-<input id="display" type="text" readonly>
-
-<div class="keys">
-
-<button class="clear" onclick="clearCalc()">AC</button>
-<button class="scientific" onclick="percent()">%</button>
-<button class="scientific" onclick="sqrt()">√</button>
-<button class="operator" onclick="press('/')">÷</button>
-
-<button class="scientific" onclick="square()">x²</button>
-<button class="scientific" onclick="reciprocal()">1/x</button>
-<button class="scientific" onclick="press(Math.PI)">π</button>
-<button class="operator" onclick="press('*')">×</button>
-
-<button class="scientific" onclick="sinCalc()">sin</button>
-<button class="scientific" onclick="cosCalc()">cos</button>
-<button class="scientific" onclick="tanCalc()">tan</button>
-<button class="operator" onclick="press('-')">−</button>
-
-<button onclick="press('7')">7</button>
-<button onclick="press('8')">8</button>
-<button onclick="press('9')">9</button>
-<button class="operator" onclick="press('+')">+</button>
-
-<button onclick="press('4')">4</button>
-<button onclick="press('5')">5</button>
-<button onclick="press('6')">6</button>
-<button onclick="backspace()">⌫</button>
-
-<button onclick="press('1')">1</button>
-<button onclick="press('2')">2</button>
-<button onclick="press('3')">3</button>
-<button onclick="calculate()">=</button>
-
-<button onclick="press('0')">0</button>
-<button onclick="press('.')">.</button>
-<button onclick="press('(')">(</button>
-<button onclick="press(')')">)</button>
-
-</div>
-</div>
-
-<!-- CONTACT -->
-
-<div class="card" id="contact">
-
-<h2>Contact</h2>
-
-<p>Contact me directly on WhatsApp.</p>
-
-<a href="https://wa.me/916281670034" target="_blank">
-<button class="whatsapp">
-Contact Me on WhatsApp
-</button>
-</a>
-
+    <div id="answer">
+        MR AI: Hello! Ask me something. 😊
+    </div>
 </div>
 
 <script>
+function askAI(){
 
-/* TIME */
+    const question =
+        document.getElementById("question").value.trim();
 
-function updateClock(){
+    const answer =
+        document.getElementById("answer");
 
-let now=new Date();
+    if(!question){
+        answer.innerText =
+            "MR AI: Please type a question.";
+        return;
+    }
 
-let h=now.getHours();
-let m=now.getMinutes();
-let s=now.getSeconds();
+    const q = question.toLowerCase();
 
-let ampm=h>=12?"PM":"AM";
-
-h=h%12;
-h=h?h:12;
-
-h=String(h).padStart(2,"0");
-m=String(m).padStart(2,"0");
-s=String(s).padStart(2,"0");
-
-document.getElementById("time").innerText=
-h+":"+m+":"+s+" "+ampm;
-
-let d=String(now.getDate()).padStart(2,"0");
-let mo=String(now.getMonth()+1).padStart(2,"0");
-let y=now.getFullYear();
-
-document.getElementById("date").innerText=
-d+"/"+mo+"/"+y;
-
-let days=[
-"Sunday","Monday","Tuesday",
-"Wednesday","Thursday","Friday","Saturday"
-];
-
-document.getElementById("day").innerText=
-days[now.getDay()];
-
+    if(q.includes("hello") || q.includes("hi")){
+        answer.innerText =
+            "MR AI: Hello Ratnababu! 👋 Welcome to Ratnababu World.";
+    }
+    else if(q.includes("name")){
+        answer.innerText =
+            "MR AI: My name is MR AI. 🤖";
+    }
+    else if(q.includes("website")){
+        answer.innerText =
+            "MR AI: This is Ratnababu World website. 🌍";
+    }
+    else if(q.includes("who are you")){
+        answer.innerText =
+            "MR AI: I am MR AI, your website assistant. 🤖";
+    }
+    else if(q.includes("income") || q.includes("money")){
+        answer.innerText =
+            "MR AI: You can earn from an app using ads, premium features, products or services.";
+    }
+    else{
+        answer.innerText =
+            "MR AI: I received your question: " + question +
+            " 😊";
+    }
 }
-
-updateClock();
-setInterval(updateClock,1000);
-
-
-/* WALLET DEMO */
-
-let balance=0;
-
-function addMoney(){
-
-let amount=prompt("Enter amount:");
-
-if(amount && !isNaN(amount) && Number(amount)>0){
-
-balance+=Number(amount);
-
-document.getElementById("balance").innerText=
-balance.toFixed(2);
-
-document.getElementById("walletMessage").innerText=
-"₹"+Number(amount).toFixed(2)+" added (Demo)";
-
-}
-
-}
-
-function withdrawMoney(){
-
-if(balance<=0){
-
-document.getElementById("walletMessage").innerText=
-"Wallet balance is ₹0.00";
-
-return;
-
-}
-
-let amount=prompt("Enter withdrawal amount:");
-
-if(amount && !isNaN(amount) && Number(amount)>0){
-
-amount=Number(amount);
-
-if(amount<=balance){
-
-balance-=amount;
-
-document.getElementById("balance").innerText=
-balance.toFixed(2);
-
-document.getElementById("walletMessage").innerText=
-"₹"+amount.toFixed(2)+" withdrawn (Demo)";
-
-}else{
-
-document.getElementById("walletMessage").innerText=
-"Insufficient demo balance";
-
-}
-
-}
-
-}
-
-
-/* CALCULATOR */
-
-function press(v){
-document.getElementById("display").value+=v;
-}
-
-function clearCalc(){
-document.getElementById("display").value="";
-}
-
-function backspace(){
-
-let d=document.getElementById("display");
-d.value=d.value.slice(0,-1);
-
-}
-
-function calculate(){
-
-let d=document.getElementById("display");
-
-try{
-d.value=Function("return "+d.value)();
-}
-catch{
-d.value="Error";
-}
-
-}
-
-function getNum(){
-
-let n=parseFloat(document.getElementById("display").value);
-
-return isNaN(n)?null:n;
-
-}
-
-function percent(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=n/100;
-
-}
-
-function sqrt(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=Math.sqrt(n);
-
-}
-
-function square(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=n*n;
-
-}
-
-function reciprocal(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=1/n;
-
-}
-
-function sinCalc(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=
-Math.sin(n*Math.PI/180);
-
-}
-
-function cosCalc(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=
-Math.cos(n*Math.PI/180);
-
-}
-
-function tanCalc(){
-
-let n=getNum();
-
-if(n!==null)
-document.getElementById("display").value=
-Math.tan(n*Math.PI/180);
-
-}
-
-
-/* LANGUAGE */
-
-const texts={
-
-en:{
-title:"Ratnababu World",
-welcome:"Welcome to my official website!"
-},
-
-te:{
-title:"రత్నబాబు వరల్డ్",
-welcome:"నా అధికారిక వెబ్‌సైట్‌కు స్వాగతం!"
-},
-
-hi:{
-title:"रत्नबाबू वर्ल्ड",
-welcome:"मेरी आधिकारिक वेबसाइट पर आपका स्वागत है!"
-},
-
-ta:{
-title:"ரத்னபாபு வேர்ல்ட்",
-welcome:"எனது அதிகாரப்பூர்வ இணையதளத்திற்கு வரவேற்கிறேன்!"
-},
-
-kn:{
-title:"ರತ್ನಬಾಬು ವರ್ಲ್ಡ್",
-welcome:"ನನ್ನ ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ಗೆ ಸ್ವಾಗತ!"
-},
-
-ml:{
-title:"രത്നബാബു വേൾഡ്",
-welcome:"എന്റെ ഔദ്യോഗിക വെബ്‌സൈറ്റിലേക്ക് സ്വാഗതം!"
-},
-
-mr:{
-title:"रत्नबाबू वर्ल्ड",
-welcome:"माझ्या अधिकृत वेबसाइटवर आपले स्वागत आहे!"
-},
-
-bn:{
-title:"রত্নবাবু ওয়ার্ল্ড",
-welcome:"আমার অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম!"
-}
-
-};
-
-function changeLanguage(){
-
-let lang=document.getElementById("language").value;
-
-document.getElementById("title").innerText=
-texts[lang].title;
-
-document.getElementById("welcome").innerText=
-texts[lang].welcome;
-
-}
-
 </script>
 
 </body>
 </html>
-
